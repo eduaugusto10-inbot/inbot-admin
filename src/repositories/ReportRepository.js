@@ -86,7 +86,7 @@ module.exports = {
   getChatGPT: (dateQuery) => {
     return new Promise((accept, reject) => {
       db.query(
-        "SELECT bot_id, SUM(gpt_log_total_tokens) AS chatgpt, YEAR(session_day) AS YEAR, MONTH(session_day) AS MONTH FROM sessions_day WHERE session_day>=? AND bot_server_type='dev' GROUP BY bot_id, MONTH,YEAR ORDER BY YEAR DESC, MONTH DESC;",
+        "SELECT bot_id, SUM(gpt_log_total_tokens) AS chatgpt, YEAR(session_day) AS year, MONTH(session_day) AS month FROM sessions_day WHERE session_day>=? AND bot_server_type='production' GROUP BY bot_id, month,year ORDER BY year DESC, month DESC;",
         [dateQuery],
         (error, results) => {
           if (error) {
