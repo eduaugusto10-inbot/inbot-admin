@@ -51,7 +51,7 @@ const dynamicList = (bots) => {
             const month2 = document.createElement("td");
             const month1 = document.createElement("td");
             const monthActual = document.createElement("td");
-            botName.innerHTML = bot.bot_name;
+            botName.innerHTML = bot.bot_project_name;
             botID.innerHTML = bot.bot_id;
             contract.innerHTML =
                 bot.bot_customer_contract_type == undefined
@@ -178,7 +178,7 @@ function newQuery(obj) {
     const query = document.getElementById("input-search").value;
     const regex = new RegExp(query, "gi");
     if (radioStatus == true)
-        obj = obj.filter((item) => item.bot_name.match(regex));
+        obj = obj.filter((item) => item.bot_project_name.match(regex));
     else obj = obj.filter((item) => item.bot_id.toString().match(regex));
     return obj;
 }

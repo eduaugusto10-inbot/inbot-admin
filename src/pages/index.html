@@ -179,7 +179,7 @@
             content[j].style.backgroundColor =
               i % 2 == 0 ? "#fdfdfd" : "#eeeeee";
           }
-          content[0].innerHTML = bot.bot_name;
+          content[0].innerHTML = bot.bot_project_name;
           content[1].innerHTML = bot.bot_id;
           content[2].innerHTML =
             bot.bot_customer_contract_type == undefined
@@ -379,7 +379,7 @@
       const query = document.getElementById("input-search").value;
       const regex = new RegExp(query, "gi");
       if (radioStatus == true)
-        obj = obj.filter((item) => item.bot_name.match(regex));
+        obj = obj.filter((item) => item.bot_project_name.match(regex));
       else obj = obj.filter((item) => item.bot_id.toString().match(regex));
       return obj;
     }
