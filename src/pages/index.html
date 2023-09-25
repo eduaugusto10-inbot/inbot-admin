@@ -171,7 +171,7 @@
         for (let i = 0; i < 8; i++) {
           tableBots.appendChild(variables[i]);
         }
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 7; i++) {
           let content = [];
           const newCell = document.createElement("tr");
           for (let j = 0; j < 8; j++) {
@@ -188,166 +188,57 @@
           switch (i) {
             case 0:
               content[3].innerHTML = "Quantidade de atendimentos total (bot)";
-              content[4].innerHTML =
-                bot.months[3] == undefined
-                  ? 0
-                  : bot.months[3].total == undefined
-                  ? 0
-                  : bot.months[3].total;
-              content[5].innerHTML =
-                bot.months[2] == undefined
-                  ? 0
-                  : bot.months[2].total == undefined
-                  ? 0
-                  : bot.months[2].total;
-              content[6].innerHTML =
-                bot.months[1] == undefined
-                  ? 0
-                  : bot.months[1].total == undefined
-                  ? 0
-                  : bot.months[1].total;
-              content[7].innerHTML =
-                bot.months[0] == undefined
-                  ? 0
-                  : bot.months[0].total == undefined
-                  ? 0
-                  : bot.months[0].total;
+              content[4].innerHTML = bot?.months[3]?.total != (undefined || null) ? bot.months[3].total : 0;
+              content[5].innerHTML = bot?.months[2]?.total != (undefined || null) ? bot.months[2].total : 0;
+              content[6].innerHTML = bot?.months[1]?.total != (undefined || null) ? bot.months[1].total : 0;
+              content[7].innerHTML = bot?.months[0]?.total != (undefined || null) ? bot.months[0].total : 0;      
+              for (let k = 4; k < 8; k++) {
+                  content[k].style.backgroundColor = cellColor(content[2].innerHTML,content[k].innerHTML);
+                  content[k].style.color = cellColorText(content[k].style.backgroundColor);
+              }
               break;
             case 1:
               content[3].innerHTML = "Quantidade de atendimentos via whatsapp";
-              content[4].innerHTML =
-                bot.months[3] == undefined
-                  ? 0
-                  : bot.months[3].whatsapp == undefined
-                  ? 0
-                  : bot.months[3].whatsapp;
-              content[5].innerHTML =
-                bot.months[2] == undefined
-                  ? 0
-                  : bot.months[2].whatsapp == undefined
-                  ? 0
-                  : bot.months[2].whatsapp;
-              content[6].innerHTML =
-                bot.months[1] == undefined
-                  ? 0
-                  : bot.months[1].whatsapp == undefined
-                  ? 0
-                  : bot.months[1].whatsapp;
-              content[7].innerHTML =
-                bot.months[0] == undefined
-                  ? 0
-                  : bot.months[0].whatsapp == undefined
-                  ? 0
-                  : bot.months[0].whatsapp;
+              content[4].innerHTML = bot?.months[3]?.whatsapp != (undefined || null) ? bot.months[3].whatsapp : 0;
+              content[5].innerHTML = bot?.months[2]?.whatsapp != (undefined || null) ? bot.months[2].whatsapp : 0;
+              content[6].innerHTML = bot?.months[1]?.whatsapp != (undefined || null) ? bot.months[1].whatsapp : 0;
+              content[7].innerHTML = bot?.months[0]?.whatsapp != (undefined || null) ? bot.months[0].whatsapp : 0;
               break;
             case 2:
               content[3].innerHTML =
                 "Quantidade de atendimentos inchat (humano)";
-              content[4].innerHTML =
-                bot.months[3] == undefined
-                  ? 0
-                  : bot.months[3].inchat == undefined
-                  ? 0
-                  : bot.months[3].inchat;
-              content[5].innerHTML =
-                bot.months[2] == undefined
-                  ? 0
-                  : bot.months[2].inchat == undefined
-                  ? 0
-                  : bot.months[2].inchat;
-              content[6].innerHTML =
-                bot.months[1] == undefined
-                  ? 0
-                  : bot.months[1].inchat == undefined
-                  ? 0
-                  : bot.months[1].inchat;
-              content[7].innerHTML =
-                bot.months[0] == undefined
-                  ? 0
-                  : bot.months[0].inchat == undefined
-                  ? 0
-                  : bot.months[0].inchat;
+                content[4].innerHTML = bot?.months[3]?.inchat != (undefined || null) ? bot.months[3].inchat : 0;
+              content[5].innerHTML = bot?.months[2]?.inchat != (undefined || null) ? bot.months[2].inchat : 0;
+              content[6].innerHTML = bot?.months[1]?.inchat != (undefined || null) ? bot.months[1].inchat : 0;
+              content[7].innerHTML = bot?.months[0]?.inchat != (undefined || null) ? bot.months[0].inchat : 0;
               break;
             case 3:
               content[3].innerHTML = "Quantidade de IDK";
-              content[4].innerHTML =
-                bot.months[3] == undefined
-                  ? 0
-                  : bot.months[3].idk == undefined
-                  ? 0
-                  : bot.months[3].idk;
-              content[5].innerHTML =
-                bot.months[2] == undefined
-                  ? 0
-                  : bot.months[2].idk == undefined
-                  ? 0
-                  : bot.months[2].idk;
-              content[6].innerHTML =
-                bot.months[1] == undefined
-                  ? 0
-                  : bot.months[1].idk == undefined
-                  ? 0
-                  : bot.months[1].idk;
-              content[7].innerHTML =
-                bot.months[0] == undefined
-                  ? 0
-                  : bot.months[0].idk == undefined
-                  ? 0
-                  : bot.months[0].idk;
+              content[4].innerHTML = bot?.months[3]?.idk != (undefined || null) ? bot.months[3].idk : 0;
+              content[5].innerHTML = bot?.months[2]?.idk != (undefined || null) ? bot.months[2].idk : 0;
+              content[6].innerHTML = bot?.months[1]?.idk != (undefined || null) ? bot.months[1].idk : 0;
+              content[7].innerHTML = bot?.months[0]?.idk != (undefined || null) ? bot.months[0].idk : 0;
               break;
             case 4:
               content[3].innerHTML = "Quantidade de fichas criadas e aprovadas";
-              content[4].innerHTML =
-                bot.months[3] == undefined
-                  ? 0
-                  : bot.months[3].fichas == undefined
-                  ? 0
-                  : bot.months[3].fichas;
-              content[5].innerHTML =
-                bot.months[2] == undefined
-                  ? 0
-                  : bot.months[2].fichas == undefined
-                  ? 0
-                  : bot.months[2].fichas;
-              content[6].innerHTML =
-                bot.months[1] == undefined
-                  ? 0
-                  : bot.months[1].fichas == undefined
-                  ? 0
-                  : bot.months[1].fichas;
-              content[7].innerHTML =
-                bot.months[0] == undefined
-                  ? 0
-                  : bot.months[0].fichas == undefined
-                  ? 0
-                  : bot.months[0].fichas;
+              content[4].innerHTML = bot?.months[3]?.fichas != (undefined || null) ? bot.months[3].fichas : 0;
+              content[5].innerHTML = bot?.months[2]?.fichas != (undefined || null) ? bot.months[2].fichas : 0;
+              content[6].innerHTML = bot?.months[1]?.fichas != (undefined || null) ? bot.months[1].fichas : 0;
+              content[7].innerHTML = bot?.months[0]?.fichas != (undefined || null) ? bot.months[0].fichas : 0;
               break;
             case 5:
-              content[3].innerHTML = "Quantidade de consulta com chatGPT";
-              content[4].innerHTML =
-                bot.months[3] == undefined
-                  ? 0
-                  : bot.months[3].chatgpt == undefined
-                  ? 0
-                  : bot.months[3].chatgpt;
-              content[5].innerHTML =
-                bot.months[2] == undefined
-                  ? 0
-                  : bot.months[2].chatgpt == undefined
-                  ? 0
-                  : bot.months[2].chatgpt;
-              content[6].innerHTML =
-                bot.months[1] == undefined
-                  ? 0
-                  : bot.months[1].chatgpt == undefined
-                  ? 0
-                  : bot.months[1].chatgpt;
-              content[7].innerHTML =
-                bot.months[0] == undefined
-                  ? 0
-                  : bot.months[0].chatgpt == undefined
-                  ? 0
-                  : bot.months[0].chatgpt;
+              content[3].innerHTML = "Quantidade de Tokens do ChatGPT utilizados";
+              content[4].innerHTML = bot?.months[3]?.chatgpt != (undefined || null) ? bot.months[3].chatgpt : 0;
+              content[5].innerHTML = bot?.months[2]?.chatgpt != (undefined || null) ? bot.months[2].chatgpt : 0;
+              content[6].innerHTML = bot?.months[1]?.chatgpt != (undefined || null) ? bot.months[1].chatgpt : 0;
+              content[7].innerHTML = bot?.months[0]?.chatgpt != (undefined || null) ? bot.months[0].chatgpt : 0;
+              break;
+            case 6:
+              content[3].innerHTML = "Custo com Tokens do ChatGPT (dólar)";
+              content[4].innerHTML = "$"+(bot?.months[3]?.dolarcost != (undefined || null) ? bot.months[3].dolarcost : 0).toFixed(2);
+              content[5].innerHTML = "$"+(bot?.months[2]?.dolarcost != (undefined || null) ? bot.months[2].dolarcost : 0).toFixed(2);
+              content[6].innerHTML = "$"+(bot?.months[1]?.dolarcost != (undefined || null) ? bot.months[1].dolarcost : 0).toFixed(2);
+              content[7].innerHTML = "$"+(bot?.months[0]?.dolarcost != (undefined || null) ? bot.months[0].dolarcost : 0).toFixed(2);
               break;
           }
           tableBots.appendChild(newCell);
@@ -424,6 +315,31 @@
         objStatus = [];
       }
       return objStatus;
+    }
+
+    function cellColor(contract, value){
+      let contractValue = 0;
+      if(contract==="Start"){
+        contractValue = 500;
+      } else if(contract === "Lite"){
+        contractValue = 1200;
+      } else {
+        contractValue = 10000;
+      }
+      const percentValue = value/contractValue;
+      if(percentValue <0.31){
+        return "yellow"
+      } else if(percentValue >=0.31 && percentValue <0.71){
+        return "blue"
+      } else if(percentValue >=0.71 && percentValue <1){
+        return "green"
+      } else {
+        return "red"
+      }
+    }
+
+    function cellColorText(v){
+      return v !== "yellow" ? "white" : "black"; 
     }
   </script>
 </html>

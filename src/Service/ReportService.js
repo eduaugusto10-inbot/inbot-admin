@@ -79,7 +79,20 @@ class ReportService {
                 }
             }
 
-            return chatGPTData
+            let dolarCost = JSON.parse(JSON.stringify(chatGPTData))
+            for (var i in chatGPTData) {
+                for (var j in getChatGPT) {
+                    if (chatGPTData[i].bot_id == getChatGPT[j].bot_id)
+                        for (let w = 0; w <= 3; w++) {
+                            if (chatGPTData[i].months[w].month == getChatGPT[j].month)
+                            dolarCost[i].months[w].dolarcost = getChatGPT[j].chatgpt !== undefined ? ((getChatGPT[j].chatgpt/1000)*0.02) : 0
+                        }
+                }
+            }
+
+
+
+            return dolarCost
         } catch (error) {
             return ({ message: error, statusCode: 500 })
         }
