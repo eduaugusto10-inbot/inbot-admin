@@ -66,7 +66,7 @@
       <b>
         <a onclick="history.back()">← VOLTAR</a>
       </b>
-      <h2>Relatório para Gestão da Operação PME</h2>
+      <h2>Relatório - Gestão da Operação</h2>
       <div id="search-container">
         <fieldset>
           <legend>Procurar</legend>
@@ -128,6 +128,52 @@
             </div>
           </div>
         </fieldset>
+        <fieldset>
+          <legend>Tipo de contrato</legend>
+          <div>
+            <div>
+              <input type="checkbox" id="contract-start" onclick="search()" checked="checked"/>
+              <label>Start</label>
+            </div>
+            <div>
+              <input type="checkbox" id="contract-lite" onclick="search()" checked="checked"/>
+              <label>Lite</label>
+            </div>
+            <div>
+              <input type="checkbox" id="contract-business" onclick="search()" checked="checked"/>
+              <label>Business</label>
+            </div>
+            <div>
+              <input type="checkbox" id="contract-enterprise" onclick="search()" checked="checked"/>
+              <label>Enterprise</label>
+            </div>
+            <div>
+              <input type="checkbox" id="contract-outro" onclick="search()" />
+              <label>Outro</label>
+            </div>
+          </div>
+        </fieldset>        
+      </div>
+      <div>
+        <legend style="font-size: 12px;">Utilização do plano contratado</legend>
+        <div style="display: flex;flex-direction: row; font-size: 12px;">
+          <div style="display: flex;flex-direction: row;padding: 10px;">
+            <div style="background-color: yellow;width: 10px;height: 10px;border-radius: 20px;margin: 3px;"></div>
+            <label>- 0 a 30%</label>
+          </div>
+          <div style="display: flex;flex-direction: row;padding: 10px;">
+            <div style="background-color: blue;width: 10px;height: 10px;border-radius: 20px;margin: 3px;"></div>
+            <label>- 31 a 70%</label>
+          </div>
+          <div style="display: flex;flex-direction: row;padding: 10px;">
+            <div style="background-color: green;width: 10px;height: 10px;border-radius: 20px;margin: 3px;"></div>
+            <label>- 71 a 100%</label>
+          </div>
+          <div style="display: flex;flex-direction: row;padding: 10px;">
+            <div style="background-color: red;width: 10px;height: 10px;border-radius: 20px;margin: 3px;"></div>
+            <label>- acima de 100%</label>
+          </div>
+        </div>
       </div>
     </div>
   </body>
@@ -253,6 +299,7 @@
       let obj = resp;
       obj = statusBot(obj);
       obj = subscribers(obj);
+      obj = contractStatus(obj);
       removeChild();
       obj = newQuery(obj);
       dynamicList(obj);
@@ -317,12 +364,42 @@
       return objStatus;
     }
 
+    function contractStatus(objStatus) {
+      let newObj = []
+      let startContract = document.getElementById("contract-start").checked;
+      let liteContract = document.getElementById("contract-lite").checked;
+      let businessContract = document.getElementById("contract-business").checked;
+      let enterpriseContract = document.getElementById("contract-enterprise").checked;
+      let outroContract = document.getElementById("contract-outro").checked;
+      if (startContract === false) {
+        objStatus = objStatus.filter((item) => item.bot_customer_contract_type !== "Start");
+      }
+      if (liteContract === false) {
+        objStatus = objStatus.filter((item) => item.bot_customer_contract_type !== "Lite");
+      }
+      if (outroContract === false) {
+        objStatus = objStatus.filter((item) => item.bot_customer_contract_type !== "Outro");
+      }
+      if (businessContract === false) {
+        objStatus = objStatus.filter((item) => item.bot_customer_contract_type !== "Business");
+      }
+      if (enterpriseContract === false) {
+        objStatus = objStatus.filter((item) => item.bot_customer_contract_type !== "Enterprise");
+      }
+      // if (botsEnable === false) {
+      //   objStatus = [];
+      // }
+      return objStatus;
+    }
+
     function cellColor(contract, value){
       let contractValue = 0;
       if(contract==="Start"){
         contractValue = 500;
       } else if(contract === "Lite"){
         contractValue = 1200;
+      } else if(contract === "Business"){
+        contractValue = 1500;
       } else {
         contractValue = 10000;
       }
