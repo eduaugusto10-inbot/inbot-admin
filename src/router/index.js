@@ -1,11 +1,23 @@
 const express = require('express')
 const path = require('path')
 const ReportController = require('../controllers/ReportController')
+const SmartersController = require('../controllers/SmartersController')
 
 const router = express.Router()
 
 router.get('/report', new ReportController().getAll)
+router.get('/whats', new SmartersController().getAll)
+router.get('/whats/:phone', new SmartersController().getByPhone)
+router.post('/whats', new SmartersController().create)
+router.delete('/whats/:phone', new SmartersController().delete)
+router.put('/whats/:phone', new SmartersController().put)
 router.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '../pages/index.html'));
+    res.sendFile(path.join(__dirname, '../pages/index.html')); 
 });
-module.exports = router
+router.get('/whatsapp', function (req, res) { 
+    res.sendFile(path.join(__dirname, '../pages/whatsapp.html'));
+});
+router.get('/facebook', function (req, res) { 
+    res.sendFile(path.join(__dirname, '../pages/facebook.html'));
+});
+module.exports = router   

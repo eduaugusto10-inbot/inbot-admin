@@ -1,0 +1,59 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+</head>
+
+<body>
+    <div id="tabela-container"></div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script>
+    const baseUrlProd = "http://localhost:3000/whats";
+    let resp = [];
+    axios
+        .get(baseUrlProd)
+        .then((response) => {
+            resp = response.data;
+            criarTabela(response.data)
+        })
+        .catch((error) => console.log(error));
+
+        function criarTabela(dados) {
+    const tabelaContainer = document.getElementById('tabela-container');
+    const tabela = document.createElement('table');
+    tabela.innerHTML = `
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Número</th>
+          <th>Cliente</th>
+          <th>Descrição</th>
+          <th>Token de Acesso</th>
+          <th>ID do Bot</th>
+          <th>Token do Bot</th>
+          <th>Tipo do Servidor do Bot</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${dados.map(item => `
+          <tr>
+            <td>${item.id}</td>
+            <td>${item.number}</td>
+            <td>${item.client}</td>
+            <td>${item.description}</td>
+            <td>...${item.accessToken.slice(-3)}</td>
+            <td>${item.botId}</td>
+            <td>${item.botToken}</td>
+            <td>${item.botServerType}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    `;
+    tabelaContainer.appendChild(tabela);
+  }
+</script>
+
+</html>
