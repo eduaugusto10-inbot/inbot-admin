@@ -5,19 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #DFDFDF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: #000142;
+    }
 
-        .content {
-            text-align: center;
-        }
+    .content {
+      margin: 0;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    h3,
+    h4 {
+      color: #fff;
+    }
+
+    .div-img {
+      width: 100%;
+      height: auto;
+    }
+
+    img {
+      width: 15%;
+      height: auto;
+      margin-bottom: 10%;
+    }
   </style>
 </head>
 
@@ -68,10 +90,17 @@
       });
     }
   </script>
-  <button onclick="launchWhatsAppSignup()"
-    style="background-color: #1877f2; border: 0; border-radius: 4px; color: #fff; cursor: pointer; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; height: 40px; padding: 0 24px;">Login
-    with Facebook</button>
-
+  <div class="content">
+    <div class="div-img">
+      <img src="https://inbot.com.br/wp-content/uploads/2023/08/Logo-InBot-2023-Branco-e-Azul-claro.png"
+        alt="Descrição da imagem">
+    </div>
+    <h3>Clique no botão abaixo</h3>
+    <h4>E vamos iniciar o processo para registrar seu telefone como comercial</h4>
+    <button onclick="launchWhatsAppSignup()"
+      style="background-color: #1877f2; border: 0; border-radius: 4px; color: #fff; cursor: pointer; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; height: 40px; padding: 0 24px;">Login
+      with Facebook</button>
+  </div>
 </body>
 
 </html>
