@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const ReportController = require('../controllers/ReportController')
 const SmartersController = require('../controllers/SmartersController')
-
+const version = require('../Service/Version')
 const router = express.Router()
 
 router.get('/report', new ReportController().getAll)
