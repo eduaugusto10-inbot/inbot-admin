@@ -20,4 +20,9 @@ router.get('/whatsapp', function (req, res) {
 router.get('/facebook', function (req, res) { 
     res.sendFile(path.join(__dirname, '../pages/facebook.html'));
 });
+router.get("/version",(req, res, next) => {
+    console.log(new Date(), 'Version request received', version);
+    res.send({ version: version.num });
+    next();
+});
 module.exports = router   
