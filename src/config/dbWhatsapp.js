@@ -1,9 +1,9 @@
 const mysql = require('mysql2');
 
-let connection;
+let pool;
 
 function handleDisconnect() {
-  connection = mysql.createConnection({
+  pool = mysql.createPool({
     host: process.env.DB_HOST_WHATS,
     user: process.env.DB_USER_WHATS,
     password: process.env.DB_PASS_WHATS,
@@ -11,15 +11,18 @@ function handleDisconnect() {
     port: process.env.DB_PORT_WHATS
   });
 
-  connection.connect(function(err) {
+  pool.getConnection(function(err, connection) {
     if (err) {
       console.error('Erro ao conectar ao banco de dados:', err);
       setTimeout(handleDisconnect, 2000); // Tente reconectar após 2 segundos
+    } else {
+      console.log('Conexão com o banco de dados whats estabelecida');
+      connection.release();
     }
   });
 
-  connection.on('error', function(err) {
-    console.error('Erro de banco de dados:', err);
+  pool.on('error', function(err) {
+    console.error('Erro de banco de dados whats:', err);
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
       handleDisconnect(); // Reconecte se a conexão for perdida
     } else {
@@ -30,4 +33,4 @@ function handleDisconnect() {
 
 handleDisconnect();
 
-module.exports = connection;
+module.exports = pool;
