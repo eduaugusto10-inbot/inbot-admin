@@ -7,7 +7,7 @@ module.exports = {
             "SELECT * FROM smartersNumber;",
             (error, results) => {
               if (error) {
-                return reject("Request getAllNumbers error");
+                return reject("Request getAllNumbers error: ",error);
               }
               accept(results);
             }
