@@ -74,11 +74,21 @@ class SmartersService {
             vertical: body.vertical,
             websites: body.websites
         };
-
+        const webhook = {
+            "webhook": body.gateway
+        }
+        console.log(webhook)
         console.log(bodyParams);
         try {
             const phone = await SmartersRepository.put(phoneNumber, body);
             await axios.post("https://whatsapp.smarters.io/api/v1/settings/profile", bodyParams, { headers: { Authorization: body.accessToken } })
+            return phone;
+        } catch (error) {
+            console.log(error.data)
+        }
+        try {
+            const phone = await SmartersRepository.put(phoneNumber, body);
+            await axios.post("https://whatsapp.smarters.io/api/v1/settings/webhook", webhook, { headers: { Authorization: body.accessToken } })
             return phone;
         } catch (error) {
             console.log(error.data)
