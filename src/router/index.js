@@ -11,7 +11,7 @@ router.get('/whats/:phone', new SmartersController().getByPhone)
 router.post('/whats', new SmartersController().create)
 router.delete('/whats/:phone', new SmartersController().delete)
 router.put('/whats/:phone', new SmartersController().put)
-router.post('/whats/template', new SmartersTemplateController().create)
+// router.post('/whats/template', new SmartersTemplateController().create)
 router.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '../pages/index.html')); 
 });
