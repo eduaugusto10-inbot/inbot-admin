@@ -12,13 +12,13 @@ class SmartersService {
     async getByPhone(phoneNumber) {
         try {
             const getByPhone = await SmartersRepository.getByPhone(phoneNumber);
-            const smarters = await axios.get("https://whatsapp.smarters.io/api/v1/settings",{ headers: { Authorization: getByPhone[0].accessToken } })
+            const smarters = await axios.get("https://whatsapp.smarters.io/api/v1/settings", { headers: { Authorization: getByPhone[0].accessToken } })
             const combinedResult = {
                 ...getByPhone[0],
                 ...smarters.data.data
             };
             console.log(combinedResult)
-    
+
             return combinedResult;
         } catch (error) {
             console.log(error)
@@ -33,8 +33,18 @@ class SmartersService {
             websites: [body.websites]
         };
 
-        console.log(bodyParams);
+        try {
+            const timestampAtual = Math.floor(Date.now() / 1000);
+            const resp = await axios.get(`https://in.bot/mod_perl/api.pl?action=get_bot_token_and_welcome&bot_id=${body.botId}&p=${timestampAtual}`)
+            body.botToken = resp.data.bot_token;
+            console.log(resp.data)
 
+        } catch (error) {
+            // console.error('Erro ao realizar requisições:', error);
+            throw error; // Rejeita a Promise com o erro
+        }
+
+        console.log(body);
         try {
             const responses = await Promise.all([
                 SmartersRepository.create(body),
@@ -49,7 +59,7 @@ class SmartersService {
 
             return body;
         } catch (error) {
-            console.error('Erro ao realizar requisições:', error);
+            // console.error('Erro ao realizar requisições:', error);
             throw error; // Rejeita a Promise com o erro
         }
     }
