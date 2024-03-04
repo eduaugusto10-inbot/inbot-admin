@@ -60,13 +60,14 @@ class SmartersService {
             console.log('Resposta 2:', response2.data);
 
             return body;
-        } catch (error) {
-            // console.error('Erro ao realizar requisições:', error);
-            throw error; // Rejeita a Promise com o erro
+        } catch (error) {            
+            throw error; 
         }
     }
 
     async put(phoneNumber, body) {
+        console.log("body")
+        console.log(body)
         const bodyParams = {
             address: body.address,
             description: body.description,
@@ -75,23 +76,26 @@ class SmartersService {
             websites: body.websites
         };
         const webhook = {
-            "webhook": body.gateway
+            "webhook": body.webhook
         }
         console.log(webhook)
         console.log(bodyParams);
         try {
-            const phone = await SmartersRepository.put(phoneNumber, body);
-            await axios.post("https://whatsapp.smarters.io/api/v1/settings/profile", bodyParams, { headers: { Authorization: body.accessToken } })
-            return phone;
+            const responses = await Promise.all([
+                SmartersRepository.put(body.number,body),
+                axios.post("https://whatsapp.smarters.io/api/v1/settings/profile", bodyParams, { headers: { Authorization: body.accessToken } }),
+                axios.post("https://whatsapp.smarters.io/api/v1/settings/webhook", webhook, { headers: { Authorization: body.accessToken } })
+            ]);
+
+            const response1 = responses[0];
+            const response2 = responses[1];
+
+            console.log('Resposta 1:', response1.data);
+            console.log('Resposta 2:', response2.data);
+
+            return body;
         } catch (error) {
-            console.log(error.data)
-        }
-        try {
-            const phone = await SmartersRepository.put(phoneNumber, body);
-            await axios.post("https://whatsapp.smarters.io/api/v1/settings/webhook", webhook, { headers: { Authorization: body.accessToken } })
-            return phone;
-        } catch (error) {
-            console.log(error.data)
+            throw error;
         }
     };
     async delete(phoneNumber) {

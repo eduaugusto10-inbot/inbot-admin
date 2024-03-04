@@ -57,7 +57,7 @@ module.exports = {
       console.log(customer)
         return new Promise((accept, reject) => { 
           db.query(
-            "INSERT INTO smartersNumber (number,client,description,accessToken,botId,botToken,botServerType) VALUES(?,?,?,?,?,?,?);",
+            "INSERT INTO smartersNumber (number,client,observation,accessToken,botId,botToken,botServerType) VALUES(?,?,?,?,?,?,?);",
             [customer.number,customer.client,customer.observation,customer.accessToken,customer.botId,customer.botToken,customer.botServerType],
             (error, results) => {
               if (error) {
@@ -71,7 +71,7 @@ module.exports = {
     put: (phoneNumber, customer) => {
         return new Promise((accept, reject) => {
           db.query(
-            "UPDATE smartersNumber SET client = ?, description = ?, accessToken = ?, botId = ?, botToken = ?, botServerType = ? WHERE number = ?;",
+            "UPDATE smartersNumber SET client = ?, observation = ?, accessToken = ?, botId = ?, botToken = ?, botServerType = ? WHERE number = ?;",
             [customer.client,customer.observation,customer.accessToken,customer.botId,customer.botToken,customer.botServerType,phoneNumber],
             (error, results) => {
               if (error) {
