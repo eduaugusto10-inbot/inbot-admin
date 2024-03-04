@@ -32,7 +32,9 @@ class SmartersService {
             vertical: body.vertical,
             websites: [body.websites]
         };
-
+        const webhook = {
+            "webhook": body.gateway
+        }
         try {
             const timestampAtual = Math.floor(Date.now() / 1000);
             const resp = await axios.get(`https://in.bot/mod_perl/api.pl?action=get_bot_token_and_welcome&bot_id=${body.botId}&p=${timestampAtual}`)
@@ -40,15 +42,15 @@ class SmartersService {
             console.log(resp.data)
 
         } catch (error) {
-            // console.error('Erro ao realizar requisições:', error);
-            throw error; // Rejeita a Promise com o erro
+            throw error;
         }
 
         console.log(body);
         try {
             const responses = await Promise.all([
                 SmartersRepository.create(body),
-                axios.post("https://whatsapp.smarters.io/api/v1/settings/profile", bodyParams, { headers: { Authorization: body.accessToken } })
+                axios.post("https://whatsapp.smarters.io/api/v1/settings/profile", bodyParams, { headers: { Authorization: body.accessToken } }),
+                axios.post("https://whatsapp.smarters.io/api/v1/settings/webhook", webhook, { headers: { Authorization: body.accessToken } })
             ]);
 
             const response1 = responses[0];
