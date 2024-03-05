@@ -78,6 +78,15 @@ class SmartersService {
         const webhook = {
             "webhook": body.webhook
         }
+        try {
+            const timestampAtual = Math.floor(Date.now() / 1000);
+            const resp = await axios.get(`https://in.bot/mod_perl/api.pl?action=get_bot_token_and_welcome&bot_id=${body.botId}&p=${timestampAtual}`)
+            body.botToken = resp.data.bot_token;
+            console.log(resp.data)
+
+        } catch (error) {
+            throw error;
+        }
         console.log(webhook)
         console.log(bodyParams);
         try {
