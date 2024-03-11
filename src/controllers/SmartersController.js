@@ -34,17 +34,17 @@ class SmartersController {
             if (data.statusCode == 500) {
                 res.status(500).json(data)
             }
-            res.status(201).json(data) 
+            res.status(201).json(data)
         } catch (error) {
             res.status(500).json({ message: 'Server internal error' })
         }
-    };  
+    };
     async put(req, res) {
-        const smartersService = new SmartersService(); 
+        const smartersService = new SmartersService();
         const body = req.body;
         const phoneNumber = req.params.phone;
-        if(!phoneNumber){
-            res.status(400).json({mensagem: "Falta numero do telefone"})
+        if (!phoneNumber) {
+            res.status(400).json({ mensagem: "Falta numero do telefone" })
         }
         try {
             const data = await smartersService.put(phoneNumber, body)
@@ -56,11 +56,25 @@ class SmartersController {
             res.status(500).json({ message: 'Server internal error' })
         }
     };
+    async imagePost(req, res) {
+        const smartersService = new SmartersService();
+        const image = req.body;
+        if (!image) {
+            res.status(400).json({ mensagem: "Imagem nao enviada" })
+        }
+        try {
+            await smartersService.imagePost(image)
+            res.status(200).send();
+        } catch (error) {
+            res.status(500).json({ message: 'Server internal error' })
+        }
+    };
+
     async delete(req, res) {
         const smartersService = new SmartersService();
         const phoneNumber = req.params.phone;
-        if(!phoneNumber){
-            res.status(400).json({mensagem: "Falta numero do telefone"})
+        if (!phoneNumber) {
+            res.status(400).json({ mensagem: "Falta numero do telefone" })
         }
         try {
             await smartersService.delete(phoneNumber)

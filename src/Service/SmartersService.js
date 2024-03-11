@@ -24,6 +24,19 @@ class SmartersService {
             console.log(error)
         }
     };
+
+    async imagePost(image, phoneNumber) {
+        try {
+            const getByPhone = await SmartersRepository.getByPhone(phoneNumber);
+            const profile = {
+                "profile_pic": body.imagem
+            };
+            axios.post("https://whatsapp.smarters.io/api/v1/settings/profile/pic", profile, { headers: { Authorization: getByPhone[0].accessToken } })
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
     async create(body) {
         const bodyParams = {
             address: body.address,
@@ -34,7 +47,12 @@ class SmartersService {
         };
         const webhook = {
             "webhook": body.gateway
-        }
+        };
+
+        const profile = {
+            "profile_pic": body.imagem
+        };
+
         try {
             const timestampAtual = Math.floor(Date.now() / 1000);
             const resp = await axios.get(`https://in.bot/mod_perl/api.pl?action=get_bot_token_and_welcome&bot_id=${body.botId}&p=${timestampAtual}`)
@@ -44,13 +62,17 @@ class SmartersService {
         } catch (error) {
             throw error;
         }
-
+        try {
+            await axios.post("https://whatsapp.smarters.io/api/v1/settings/profile/pic", profile, { headers: { Authorization: getByPhone[0].accessToken } })
+        } catch (error) {
+            throw error;
+        }
         console.log(body);
         try {
             const responses = await Promise.all([
                 SmartersRepository.create(body),
                 axios.post("https://whatsapp.smarters.io/api/v1/settings/profile", bodyParams, { headers: { Authorization: body.accessToken } }),
-                axios.post("https://whatsapp.smarters.io/api/v1/settings/webhook", webhook, { headers: { Authorization: body.accessToken } })
+                axios.post("https://whatsapp.smarters.io/api/v1/settings/webhook", webhook, { headers: { Authorization: body.accessToken } }),
             ]);
 
             const response1 = responses[0];
@@ -60,8 +82,8 @@ class SmartersService {
             console.log('Resposta 2:', response2.data);
 
             return body;
-        } catch (error) {            
-            throw error; 
+        } catch (error) {
+            throw error;
         }
     }
 
@@ -91,7 +113,7 @@ class SmartersService {
         console.log(bodyParams);
         try {
             const responses = await Promise.all([
-                SmartersRepository.put(body.number,body),
+                SmartersRepository.put(body.number, body),
                 axios.post("https://whatsapp.smarters.io/api/v1/settings/profile", bodyParams, { headers: { Authorization: body.accessToken } }),
                 axios.post("https://whatsapp.smarters.io/api/v1/settings/webhook", webhook, { headers: { Authorization: body.accessToken } })
             ]);
