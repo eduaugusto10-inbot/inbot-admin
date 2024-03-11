@@ -29,7 +29,7 @@ class SmartersService {
         try {
             const getByPhone = await SmartersRepository.getByPhone(phoneNumber);
             const profile = {
-                "profile_pic": body.imagem
+                "profile_pic": image
             };
             axios.post("https://whatsapp.smarters.io/api/v1/settings/profile/pic", profile, { headers: { Authorization: getByPhone[0].accessToken } })
         } catch (error) {
