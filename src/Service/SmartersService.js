@@ -50,7 +50,7 @@ class SmartersService {
         };
 
         const profile = {
-            "profile_pic": body.imagem
+            "profile_pic": body.profile_pic
         };
 
         try {
