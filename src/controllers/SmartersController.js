@@ -58,12 +58,12 @@ class SmartersController {
     };
     async imagePost(req, res) {
         const smartersService = new SmartersService();
-        const image = req.body;
+        const { image, phoneNumber } = req.body;
         if (!image) {
             res.status(400).json({ mensagem: "Imagem nao enviada" })
         }
         try {
-            await smartersService.imagePost(image)
+            await smartersService.imagePost(image, phoneNumber)
             res.status(200).send();
         } catch (error) {
             res.status(500).json({ message: 'Server internal error' })
