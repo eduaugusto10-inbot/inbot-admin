@@ -63,7 +63,7 @@ class SmartersService {
             throw error;
         }
         try {
-            await axios.post("https://whatsapp.smarters.io/api/v1/settings/profile/pic", profile, { headers: { Authorization: getByPhone[0].accessToken } })
+            await axios.post("https://whatsapp.smarters.io/api/v1/settings/profile/pic", profile, { headers: { Authorization: body.accessToken } })
         } catch (error) {
             throw error;
         }
