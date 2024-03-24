@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const ReportController = require('../controllers/ReportController')
 const SmartersController = require('../controllers/SmartersController')
+const SmartersTemplateController = require('../controllers/SmartersTemplateController')
 const version = require('../Service/Version')
 const router = express.Router()
 
@@ -12,7 +13,8 @@ router.post('/whats', new SmartersController().create)
 router.delete('/whats/:phone', new SmartersController().delete)
 router.put('/whats/:phone', new SmartersController().put)
 router.post('/whats/image', new SmartersController().imagePost)
-// router.post('/whats/template', new SmartersTemplateController().create)
+router.post('/whats/template', new SmartersTemplateController().create)
+router.post('/whats/template/send', new SmartersTemplateController().send)
 router.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '../pages/index.html'));
 });

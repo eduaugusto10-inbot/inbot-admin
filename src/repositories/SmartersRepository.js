@@ -35,7 +35,7 @@ module.exports = {
               if (error) {
                 return reject("Request getByPhone error");
               }
-              accept(results);
+              accept(results[0].accessToken);
             }
           );
         });
